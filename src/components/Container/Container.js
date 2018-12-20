@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { ContWrapper, Header } from './Container.styles'
-
+import { ContWrapper, Header, MapCont } from './Container.styles'
+import MapContainer from '../Map/MapContainer'
 
 const Container = () => {
 
@@ -11,6 +11,9 @@ const Container = () => {
          <Header>Cities</Header>
          <Header>Company</Header>
          <Header>Map</Header>
+         <MapCont>
+            <MapContainer/>
+         </MapCont>
       </ContWrapper>
 
    )

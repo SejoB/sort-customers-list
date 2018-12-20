@@ -11,5 +11,6 @@ export const AppWrapper = styled.div`
       top: 0px;
       left: 0px;
       background-color: ${BGcolor};
+      overflow: hidden;
 `
 
