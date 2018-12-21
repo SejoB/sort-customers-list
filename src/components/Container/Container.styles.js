@@ -1,9 +1,10 @@
 import styled from 'styled-components'
 
-import { whiteColor, borderColor } from '../../styled/styled.components'
+import { whiteColor, borderColor, blueColor } from '../../styled/styled.components'
 
 export const ContWrapper = styled.div`
       display: grid;
+      position: absolute;
       grid-template-columns:  20%  20%  20%  40%;
       grid-template-rows:  10% 90%;
       grid-template-areas:   "header header header header" 
@@ -23,10 +24,33 @@ export const Header = styled.div`
 `
 export const MapCont = styled.div`
       width: 100%;
-      background-color: black;
       grid-column: 4;
       grid-row: 2;  
       position: relative; 
+      border: 10px solid ${whiteColor};
+      border-top: 0;
+      border-bottom-right-radius: 10px;
 `
+export const List = styled.div`
+      /* border-bottom-left-radius: 10px; */
+	overflow-x: hidden;
+      overflow-y: scroll;
+`
+export const ListItem =styled.li`
+      color: ${blueColor};
+      font-size: 1rem;
+      line-height: 3;
+      opacity: 0.8;
+      padding-left: 10px;
+
+
+      :hover{
+            background-color: ${blueColor};
+            border-radius: 10px;
+            color: ${whiteColor};
+
+      }
+`
+
 
 
