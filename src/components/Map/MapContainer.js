@@ -1,7 +1,7 @@
 import React, { Component} from 'react'
 import {Map, Marker, GoogleApiWrapper} from 'google-maps-react'
 
-
+const mapApiKey = process.env.GOOGLE_MAP_API_KEY
 
 class MapContainer extends Component {
 
@@ -25,5 +25,5 @@ class MapContainer extends Component {
  
 
  export default GoogleApiWrapper({
-   apiKey: ('AIzaSyAB8I3fhQmUKwUVr0O_DcYGZMV4i0Dw2TI')
+   apiKey: (mapApiKey)
  })(MapContainer)
