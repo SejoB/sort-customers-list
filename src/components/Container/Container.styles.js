@@ -42,6 +42,9 @@ export const ListItem =styled.li`
       line-height: 3;
       opacity: 0.8;
       padding-left: 10px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      padding-right: 10px;
 
 
       :hover{
