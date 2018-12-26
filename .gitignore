@@ -12,6 +12,8 @@
 /build
 
 # misc
+MapContainer1.js
+MapContainer2.js
 development.env
 .DS_Store
 .env.local

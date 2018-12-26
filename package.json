@@ -6,6 +6,7 @@
     "google-maps-react": "^2.0.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
+    "react-geocode": "^0.1.2",
     "react-scripts": "2.1.1",
     "styled-components": "^4.1.3"
   },
@@ -18,6 +19,10 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "typeRoots": [
+    "../node_modules/@types",
+    "../@types"
+],
   "browserslist": [
     ">0.2%",
     "not dead",
