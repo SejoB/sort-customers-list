@@ -40,7 +40,10 @@ class Container extends Component {
                      if (a > b) return 1
                      if (a < b) return -1
                      return 0
-                  })
+                  }),
+               address: {
+                  
+               }
             }
          })
          .then((customers) => {
@@ -96,7 +99,7 @@ class Container extends Component {
                </ul>
             </List>
             <MapCont>
-               {/* <MapContainer/> */}
+               <MapContainer/>
             </MapCont>
          </ContWrapper>
 
