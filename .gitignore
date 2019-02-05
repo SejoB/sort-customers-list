@@ -14,6 +14,7 @@
 # misc
 MapContainer1.js
 MapContainer2.js
+Container2.js
 development.env
 .DS_Store
 .env.local
@@ -24,3 +25,4 @@ development.env
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+src/components/Container/Container2.js

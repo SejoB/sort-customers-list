@@ -24,7 +24,7 @@ class MapContainer extends Component {
     const url = 'https://maps.googleapis.com/maps/api/geocode/json';
     axios.get(url, {
       params: {
-        address: '120 Hanover Sq. London WA1 1DP UK',
+        address: '120 Hanover Sq.,London,WA1 1DP,UK',
         key: mapGeoApi
       }
     })
@@ -43,7 +43,7 @@ class MapContainer extends Component {
       <Map
         google={this.props.google}
         center={center}
-        zoom={19}
+        zoom={17}
       >
         <Marker position={center} />
       </Map>

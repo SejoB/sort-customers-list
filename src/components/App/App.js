@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import GlobalStyle from '../../styled/global.styles'
 
 import { AppWrapper } from './App.styles'
-import Container from '../Container/Container'
+import Container2 from '../Container/Container2'
 
 
 class App extends Component {
@@ -11,7 +11,7 @@ class App extends Component {
     return (
       <React.Fragment>
         <AppWrapper>
-          <Container/>
+          <Container2/>
         </AppWrapper>
         <GlobalStyle/>
       </React.Fragment>
