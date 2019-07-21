@@ -31,8 +31,7 @@ export const MapCont = styled.div`
       border-top: 0;
       border-bottom-right-radius: 10px;
 `
-export const List = styled.div`
-      /* border-bottom-left-radius: 10px; */
+export const List = styled.ul`
 	overflow-x: hidden;
       overflow-y: scroll;
 `
@@ -45,13 +44,13 @@ export const ListItem =styled.li`
       text-overflow: ellipsis;
       overflow: hidden;
       padding-right: 10px;
+      white-space: nowrap;
 
 
       :hover{
             background-color: ${blueColor};
             border-radius: 10px;
             color: ${whiteColor};
-
       }
 `
 

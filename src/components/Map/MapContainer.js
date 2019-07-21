@@ -16,15 +16,18 @@ class MapContainer extends Component {
 
 
   componentDidMount() {
-    this.getLatLng();
-
+    this.getLatLng()
   }
+  // componentDidUpdate() {
+  //   this.getLatLng()
+  // }
 
   getLatLng() {
     const url = 'https://maps.googleapis.com/maps/api/geocode/json';
+    console.log(this.props.location)
     axios.get(url, {
       params: {
-        address: '120 Hanover Sq.,London,WA1 1DP,UK',
+        address: this.props.location,
         key: mapGeoApi
       }
     })

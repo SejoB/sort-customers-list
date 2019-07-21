@@ -22,11 +22,11 @@ class Container extends Component {
       axios.get(clientsApi)
          .then((response) => response.data)
          .then((data) => {
-            const arrCountry = this.sortData(data.Customers, 'Country', 'City', -1)
+            // const arrCountry = this.sortData(data.Customers, 'Country', 'City', -1)
             return {
-               countries: arrCountry,
-               cities: this.groupeCities(data.Customers),
-               companies: data.Customers
+               countries:  this.sortData(data.Customers, 'Country', 'City', -1),
+               cities:     this.groupeCities(data.Customers),
+               companies:  data.Customers
                   .map(a => a.CompanyName)
                   .sort((a, b) => {
                      if (a > b) return 1
