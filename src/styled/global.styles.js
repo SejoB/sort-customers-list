@@ -5,7 +5,6 @@ import { deviceMin } from './functions'
 const GlobalStyle = createGlobalStyle`
 
    html {
-      /* display: block; */
       font-size: 10px;
       font-family: 'Roboto', Arial, sans-serif;
       ${deviceMin.mobileM`
@@ -69,4 +68,4 @@ const GlobalStyle = createGlobalStyle`
    }
    `
 
-   export default GlobalStyle
+export default GlobalStyle

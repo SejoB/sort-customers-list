@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 
-import { Map, Marker, GoogleApiWrapper, InfoWindow } from 'google-maps-react'
+import { Map, Marker, GoogleApiWrapper } from 'google-maps-react'
 
 
 const mapApi = process.env.REACT_APP_KEY_MAP_API
@@ -18,13 +18,14 @@ class MapContainer extends Component {
   componentDidMount() {
     this.getLatLng()
   }
-  // componentDidUpdate() {
-  //   this.getLatLng()
-  // }
+  componentDidUpdate(prevProps) {
+    if (this.props.location !== prevProps.location) {
+      this.getLatLng()
+    }
+  }
 
   getLatLng() {
     const url = 'https://maps.googleapis.com/maps/api/geocode/json';
-    console.log(this.props.location)
     axios.get(url, {
       params: {
         address: this.props.location,
@@ -36,7 +37,6 @@ class MapContainer extends Component {
         this.setState({
           center: data
         })
-        console.log(data)
       })
   }
 

@@ -45,6 +45,7 @@ export const ListItem =styled.li`
       overflow: hidden;
       padding-right: 10px;
       white-space: nowrap;
+      cursor: pointer;
 
 
       :hover{
