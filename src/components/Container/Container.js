@@ -19,7 +19,7 @@ class Container extends Component {
    }
 
    loadData = () => {
-      const clientsApi = "/data/clients.json"
+      const clientsApi = "https://raw.githubusercontent.com/SejoB/sort-customers-list/master/public/data/clients.json"
       axios.get(clientsApi)
          .then((response) => response.data)
          .then((data) => {
