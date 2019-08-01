@@ -10,6 +10,7 @@
 
 # production
 /build
+production.env
 
 # misc
 Container2.js
