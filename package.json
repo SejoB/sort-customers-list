@@ -5,7 +5,6 @@
   "homepage": "https://sejob.github.io/sort-customers-list",
   "dependencies": {
     "axios": "^0.19.0",
-    "gh-pages": "^2.1.0",
     "google-maps-react": "^2.0.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -17,7 +16,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "start": "react-app-env start",
-    "build": "react-scripts build",
+    "build": "react-app-env build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -36,7 +35,10 @@
   ],
   "devDependencies": {
     "babel-plugin-styled-components": "^1.10.6",
+    "gh-pages": "^2.1.0",
+    "install": "^0.13.0",
     "json-loader": "^0.5.7",
+    "npm": "^6.10.2",
     "react-app-env": "^1.2.3"
   }
 }
