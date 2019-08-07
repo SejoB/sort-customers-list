@@ -112,7 +112,7 @@ class Container extends Component {
       return obj
    }
    showCitiesHandler = (e) => {
-      e.preventDefault()
+      e.persist()
       if (e.target) {
          this.setState({
             cities: this.renderListCities(this.customers.cities[e.target.innerText])
