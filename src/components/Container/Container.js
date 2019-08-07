@@ -133,7 +133,7 @@ class Container extends Component {
          let tmp
          for (let i = 0; i < this.customers.data.length; i++) {
             tmp = this.customers.data[i]
-            if (tmp.CompanyName === e.target.innerText) {
+            if (tmp.CompanyName === e.target.innerHTML) {
                this.setState({
                   getLocation: this.renderMapContainer(tmp.CompanyName)
                })
