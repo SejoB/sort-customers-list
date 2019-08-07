@@ -17,7 +17,7 @@
     "deploy": "gh-pages -d build",
     "start": "react-app-env start",
     "build": "react-app-env build",
-    "test": "react-scripts test",
+    "test": "react-app-env test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -35,7 +35,7 @@
   ],
   "devDependencies": {
     "babel-plugin-styled-components": "^1.10.6",
-    "gh-pages": "^2.1.0",
+    "gh-pages": "^2.0.1",
     "install": "^0.13.0",
     "json-loader": "^0.5.7",
     "npm": "^6.10.2",
