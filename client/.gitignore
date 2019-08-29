@@ -13,7 +13,6 @@
 production.env
 
 # misc
-Container2.js
 development.env
 production.env
 .env
