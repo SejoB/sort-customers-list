@@ -28,8 +28,6 @@ const GlobalStyle = createGlobalStyle`
       border: none;
       width: 100%;
       box-sizing: border-box;
-
-      
    }
 
    * {
