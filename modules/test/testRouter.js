@@ -14,5 +14,21 @@ router.post(
         res.status(200).json(test)
     })
 )
+router.get(
+    '/',
+    asm(async (req, res) => {
+        const customers = await testModel.find({})
+        res.status(200).json(customers)
+    })
+)
+router.get(
+    '/:id',
+    asm(async (req, res) => {
+        const customer = await testModel.findById({ id: req.params.id })
+        console.log(customer)
+        // if (!customer) return res.status(404).send('No customer found')
+        res.status(200).json(customer)
+    })
+)
 
 module.exports = router
