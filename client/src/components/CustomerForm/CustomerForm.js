@@ -1,9 +1,9 @@
-import React from 'react'
-import { Container, Input, Label, ButtonContainer, Button } from './CustomerForm.styles'
+import React, { useState } from 'react'
+import { Container, Input, Label, ButtonContainer, Button, AddCircleIcn } from './CustomerForm.styles'
 
-const CustomerForm = () => {
+const CustomerForm = props => {
     return (
-        <Container method='post' action=''>
+        <Container method='post' action='' displayForm={props.form}>
             <Label>
                 Company Name
                 <Input type='text' name='CompanyName' autoComplete='off' required />
@@ -39,5 +39,17 @@ const CustomerForm = () => {
         </Container>
     )
 }
+const FormHandler = () => {
+    const [showForm, setShowForm] = useState('none')
+    const handler = () => {
+        setShowForm('flex')
+    }
+    return (
+        <>
+            <CustomerForm form={showForm} />
+            <AddCircleIcn onClick={handler} />
+        </>
+    )
+}
 
-export default CustomerForm
+export default FormHandler

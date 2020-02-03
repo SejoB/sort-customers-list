@@ -1,7 +1,8 @@
 import styled from 'styled-components'
+import { AddCircle } from 'styled-icons/material/AddCircle'
 
 export const Container = styled.form`
-    display: flex;
+    display: ${props => props.displayForm};
     flex-direction: column;
     z-index: 100;
     border: 1px solid #cccccc;
@@ -46,4 +47,13 @@ export const Button = styled.input`
     &:hover {
         background-color: white;
     }
+`
+export const AddCircleIcn = styled(AddCircle)`
+    color: #003dff;
+    width: 5rem;
+    height: 5rem;
+    z-index: 100;
+    position: absolute;
+    right: 50px;
+    bottom: 50px;
 `
