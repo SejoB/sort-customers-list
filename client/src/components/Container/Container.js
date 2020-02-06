@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import axios from 'axios'
-
+import { getCustomers } from '../../API/API'
 import { ContWrapper, Header, MapCont, List, ListItem } from './Container.styles'
 import MapContainer from '../Map/MapContainer'
 
@@ -17,9 +16,7 @@ class Container extends Component {
     }
 
     loadData = () => {
-        axios
-            .get('/customers')
-            .then(response => response.data)
+        getCustomers()
             .then(data => {
                 return {
                     countries: this.sortData(data, 'Country', 'City', -1),

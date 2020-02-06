@@ -4,7 +4,7 @@ import GlobalStyle from '../../styled/global.styles'
 
 import { AppWrapper } from './App.styles'
 import Container from '../Container/Container'
-import FormHandler from '../CustomerForm/CustomerForm'
+import CustomerForm from '../CustomerForm/CustomerForm'
 
 class App extends Component {
     render() {
@@ -12,7 +12,7 @@ class App extends Component {
             <React.Fragment>
                 <AppWrapper>
                     <Container />
-                    <FormHandler />
+                    <CustomerForm />
                 </AppWrapper>
                 <GlobalStyle />
             </React.Fragment>
