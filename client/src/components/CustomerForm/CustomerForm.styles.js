@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import { AddCircle } from 'styled-icons/material/AddCircle'
+import { AddCircle, Close } from 'styled-icons/material'
 
-export const Container = styled.form`
+export const Form = styled.form`
     display: ${props => props.displayForm};
     flex-direction: column;
     z-index: 100;
@@ -9,6 +9,7 @@ export const Container = styled.form`
     border-radius: 15px;
     background-color: #ffff;
     padding: 1rem;
+    transition: display 2s;
 `
 export const Input = styled.input`
     border-radius: 3px;
@@ -37,7 +38,7 @@ export const ButtonContainer = styled.div`
 export const Button = styled.input`
     padding: 0.5rem;
     background-color: #f7f6f6;
-    outline: none;
+    /* outline: none; */
     border: 1px solid #cccccc;
     border-radius: 4px;
     margin-right: 13px;
@@ -46,9 +47,10 @@ export const Button = styled.input`
     color: gray;
     &:hover {
         background-color: white;
+        cursor: pointer;
     }
 `
-export const AddCircleIcn = styled(AddCircle)`
+export const OpenFormIcn = styled(AddCircle)`
     color: #003dff;
     width: 5rem;
     height: 5rem;
@@ -56,4 +58,20 @@ export const AddCircleIcn = styled(AddCircle)`
     position: absolute;
     right: 50px;
     bottom: 50px;
+    &:hover {
+        opacity: 0.6;
+        cursor: pointer;
+    }
+`
+export const CloseFormIcn = styled(Close)`
+    color: #bfbfbf;
+    width: 2rem;
+    height: 2rem;
+    z-index: 100;
+    display: flex;
+    align-self: flex-end;
+    &:hover {
+        opacity: 0.6;
+        cursor: pointer;
+    }
 `

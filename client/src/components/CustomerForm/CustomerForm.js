@@ -1,55 +1,61 @@
 import React, { useState } from 'react'
-import { Container, Input, Label, ButtonContainer, Button, AddCircleIcn } from './CustomerForm.styles'
+import { postCustomer } from '../../API/API'
+import { Form, Input, Label, ButtonContainer, Button, OpenFormIcn, CloseFormIcn } from './CustomerForm.styles'
 
-const CustomerForm = props => {
-    return (
-        <Container method='post' action='' displayForm={props.form}>
-            <Label>
-                Company Name
-                <Input type='text' name='CompanyName' autoComplete='off' required />
-            </Label>
-            <Label>
-                Contact Name
-                <Input type='text' name='ContactName' autoComplete='off' required />
-            </Label>
-            <Label>
-                Contact Title
-                <Input type='text' name='ContactTitle' autoComplete='off' required />
-            </Label>
-            <Label>
-                Address
-                <Input type='text' name='Address' autoComplete='off' required />
-            </Label>
-            <Label>
-                City
-                <Input type='text' name='City' autoComplete='off' required />
-            </Label>
-            <Label>
-                Postal Code
-                <Input type='text' name='PostalCode' autoComplete='off' required />
-            </Label>
-            <Label>
-                Country
-                <Input type='text' name='Country' autoComplete='off' required />
-            </Label>
-            <ButtonContainer>
-                <Button type='submit' value='Submit' />
-                <Button type='reset' value='Reset' />
-            </ButtonContainer>
-        </Container>
-    )
+const FORM_LABELS = ['Company Name', 'Contact Name', 'Contact Title', 'Address', 'City', 'Postal Code', 'Country']
+
+const customerObject = () => {
+    let tmpArr = []
+    FORM_LABELS.forEach((i, key) => {
+        const nameObj = i.replace(/\s/g, '')
+        const inputField = {
+            name: [nameObj],
+            label: i,
+            value: ''
+        }
+        tmpArr.push({ id: key, inputField })
+    })
+    return tmpArr
 }
-const FormHandler = () => {
+const CustomerForm = () => {
     const [showForm, setShowForm] = useState('none')
-    const handler = () => {
-        setShowForm('flex')
+    const [customerForm, setCustomerForm] = useState(customerObject())
+    const inputChangedHandler = (event, inputId) => {
+        const updatedInput = [...customerForm]
+        updatedInput[inputId].inputField.value = event.target.value
+        setCustomerForm(updatedInput)
     }
+    const formSubmitHandler = event => {
+        event.preventDefault()
+        const formData = {}
+        customerForm.forEach(element => {
+            formData[element.inputField.name] = customerForm[element.id].inputField.value
+        })
+        postCustomer(formData)
+        setCustomerForm(customerObject)
+        setShowForm('none')
+    }
+
     return (
         <>
-            <CustomerForm form={showForm} />
-            <AddCircleIcn onClick={handler} />
+            <Form method='post' onSubmit={formSubmitHandler} displayForm={showForm}>
+                <CloseFormIcn onClick={() => setShowForm('none')} />
+                {customerForm.map(formField => {
+                    return (
+                        <Label key={formField.id}>
+                            {formField.inputField.label}
+                            <Input type='text' name={formField.inputField.name} value={formField.inputField.value} onChange={event => inputChangedHandler(event, formField.id)} required />
+                        </Label>
+                    )
+                })}
+                <ButtonContainer>
+                    <Button type='submit' value='Submit' />
+                    <Button type='reset' value='Reset' />
+                </ButtonContainer>
+            </Form>
+            <OpenFormIcn onClick={() => setShowForm('flex')} />
         </>
     )
 }
 
-export default FormHandler
+export default CustomerForm
