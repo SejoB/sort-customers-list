@@ -1,8 +1,9 @@
-import React, { Component, useState } from 'react'
+import React, { Component } from 'react'
 import { getCustomers } from '../../API/API'
 import { ContWrapper, Header, Container, List, ListItem } from './Container.styles'
 import MapContainer from '../Map/MapContainer'
 import Card from '../CustomerCard/CustomerCard'
+import { sortData, groupeCities, groupeCompanies } from '../../utils'
 
 class MainContainer extends Component {
 	state = {
@@ -12,101 +13,45 @@ class MainContainer extends Component {
 		getLocation: '',
 		isToggle: true
 	}
-
 	componentDidMount() {
 		this.loadData()
 	}
 	loadData = () => {
 		getCustomers()
 			.then(data => {
-				return {
-					countries: this.sortData(data, 'Country', 'City', -1),
-					cities: this.groupeCities(data),
-					companies: this.groupeCompanies(data),
-					data: data
-				}
+				return this.sortingData(data)
 			})
 			.then(customers => {
-				this.customers = {
-					cities: customers.cities,
-					companies: customers.companies,
-					data: customers.data
-				}
-				let firstCountry = customers.countries[0][0],
-					firstCities = customers.cities[firstCountry]
-				this.setState({
-					countries: this.renderListCountries(customers.countries),
-					cities: this.renderListCities(firstCities),
-					companies: this.renderListCompanies(customers.companies[firstCities[0]]),
-					getLocation: this.renderMapContainer(customers.companies[firstCities[0]][0])
-				})
+				return this.initialData(customers)
 			})
 			.catch(err => {
 				console.log(err)
 			})
 	}
-	sortData = (data, resProp, sortProp, sortOrder = 1) => {
-		let obj = {}
-		data.forEach(i => {
-			let k = i[resProp]
-			if (k in obj) {
-				obj[k].add(i[sortProp])
-			} else {
-				obj[k] = new Set()
+	sortingData = data => {
+		if (data) {
+			return {
+				countries: sortData(data, 'Country', 'City', -1),
+				cities: groupeCities(data),
+				companies: groupeCompanies(data),
+				data: data
 			}
-		})
-		for (let n in obj) {
-			obj[n] = Array.from(obj[n]).length
 		}
-		obj = Object.entries(obj)
-		obj.sort((a, b) => (a[1] - b[1]) * sortOrder)
-		return obj
 	}
-	groupeCities = data => {
-		const arrCities = this.sortData(data, 'City', 'Company', -1)
-		let obj = {}
-		data.forEach(i => {
-			let k = i['Country'],
-				j = i['City']
-			if (k in obj) {
-				obj[k].add(j)
-			} else {
-				obj[k] = new Set()
-				obj[k].add(j)
-			}
-		})
-		for (let n in obj) {
-			obj[n] = arrCities
-				.filter(city => {
-					return Array.from(obj[n]).includes(city[0])
-				})
-				.map(i => i[0])
+	initialData = customers => {
+		this.customers = {
+			cities: customers.cities,
+			companies: customers.companies,
+			data: customers.data
 		}
-		return obj
-	}
-	groupeCompanies = data => {
-		let obj = {}
-		data.forEach(i => {
-			let k = i['City'],
-				j = i['CompanyName']
-			if (k in obj) {
-				obj[k].add(j)
-			} else {
-				obj[k] = new Set()
-				obj[k].add(j)
-			}
+		let firstCountry = customers.countries[0][0],
+			firstCities = customers.cities[firstCountry]
+		this.setState({
+			countries: this.renderListCountries(customers.countries),
+			cities: this.renderListCities(firstCities),
+			companies: this.renderListCompanies(customers.companies[firstCities[0]]),
+			getLocation: this.renderMapContainer(customers.companies[firstCities[0]][0])
 		})
-		let tmp
-		for (let n in obj) {
-			tmp = Array.from(obj[n])
-			tmp.sort((a, b) => {
-				if (a > b) return 1
-				if (a < b) return -1
-				return 0
-			})
-			obj[n] = tmp
-		}
-		return obj
 	}
 	showCitiesHandler = e => {
 		e.persist()
@@ -207,8 +152,9 @@ class MainContainer extends Component {
 				<List>{companies}</List>
 				<Container>
 					{isToggle ? (
-						<MapContainer>{getLocation}</MapContainer>
+						<div></div>
 					) : (
+						// <MapContainer>{getLocation}</MapContainer>
 						<Card data={'CompanyName'} />
 					)}
 				</Container>
