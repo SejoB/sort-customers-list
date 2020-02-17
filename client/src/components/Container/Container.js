@@ -1,20 +1,26 @@
 import React, { Component } from 'react'
-import { getCustomers } from '../../API/API'
+import { getCustomers, deleteCustomer } from '../../API/API'
 import { ContWrapper, Header, Container, List, ListItem } from './Container.styles'
 import MapContainer from '../Map/MapContainer'
 import Card from '../CustomerCard/CustomerCard'
-import { sortData, groupeCities, groupeCompanies } from '../../utils'
-
+import { sortData, groupeCities, groupeCompanies, filterCustomerData } from '../../utils'
 class MainContainer extends Component {
 	state = {
 		countries: [],
 		cities: [],
 		companies: [],
 		getLocation: '',
-		isToggle: true
+		isToggle: true,
+		customerCard: [],
+		companyName: ''
 	}
 	componentDidMount() {
 		this.loadData()
+	}
+	componentDidUpdate(prevProps, prevState) {
+		if (prevState.companyName !== this.state.companyName) {
+			this.loadCustomerData()
+		}
 	}
 	loadData = () => {
 		getCustomers()
@@ -50,7 +56,8 @@ class MainContainer extends Component {
 			countries: this.renderListCountries(customers.countries),
 			cities: this.renderListCities(firstCities),
 			companies: this.renderListCompanies(customers.companies[firstCities[0]]),
-			getLocation: this.renderMapContainer(customers.companies[firstCities[0]][0])
+			getLocation: this.renderMapContainer(customers.companies[firstCities[0]][0]),
+			companyName: customers.companies[firstCities[0]][0]
 		})
 	}
 	showCitiesHandler = e => {
@@ -64,12 +71,13 @@ class MainContainer extends Component {
 	showCompaniesHandler = e => {
 		e.persist()
 		if (e.target) {
+			console.log(this.customers.companies[e.target.innerHTML])
 			this.setState({
 				companies: this.renderListCompanies(this.customers.companies[e.target.innerHTML])
 			})
 		}
 	}
-	getLocationHandler = e => {
+	getCustomerDetails = e => {
 		e.persist()
 		if (e.target) {
 			let tmp
@@ -77,7 +85,8 @@ class MainContainer extends Component {
 				tmp = this.customers.data[i]
 				if (tmp.CompanyName === e.target.innerHTML) {
 					this.setState({
-						getLocation: this.renderMapContainer(tmp.CompanyName)
+						getLocation: this.renderMapContainer(tmp.CompanyName),
+						companyName: tmp.CompanyName
 					})
 				}
 			}
@@ -104,7 +113,7 @@ class MainContainer extends Component {
 	renderListCompanies = obj => {
 		return obj.map((a, key) => {
 			return (
-				<ListItem key={key} onClick={this.getLocationHandler}>
+				<ListItem key={key} onClick={this.getCustomerDetails}>
 					{a}
 				</ListItem>
 			)
@@ -135,9 +144,25 @@ class MainContainer extends Component {
 		this.setState({
 			isToggle: false
 		})
+		this.loadCustomerData()
+	}
+	loadCustomerData = () => {
+		const companyName = this.state.companyName
+		const getCustomer = this.customers.data.find(i => i.CompanyName === companyName)
+		this.setState({
+			customerCard: filterCustomerData(getCustomer)
+		})
+	}
+	deleteCustomerHandler = () => {
+		const companyName = this.state.companyName
+		deleteCustomer(companyName).then(data => console.log(data))
+		this.loadData()
+	}
+	editCustomerHandler = () => {
+		console.log('click')
 	}
 	render() {
-		const { countries, cities, companies, getLocation, isToggle } = this.state
+		const { countries, cities, companies, getLocation, isToggle, customerCard } = this.state
 		return (
 			<ContWrapper>
 				<Header>Countries</Header>
@@ -154,8 +179,12 @@ class MainContainer extends Component {
 					{isToggle ? (
 						<div></div>
 					) : (
-						// <MapContainer>{getLocation}</MapContainer>
-						<Card data={'CompanyName'} />
+						// <MapContainer location={getLocation} />
+						<>
+							<Card data={customerCard} />
+							<button onClick={this.deleteCustomerHandler}>delete</button>
+							<button onClick={this.editCustomerHandler}>edit</button>
+						</>
 					)}
 				</Container>
 			</ContWrapper>

@@ -1,14 +1,13 @@
 import React from 'react'
 import { customerObject } from '../../utils'
-import { Container, Item, Text } from '../CustomerCard/CustomerCard.styles'
+import { Container, Item, Text, Text1 } from '../CustomerCard/CustomerCard.styles'
 
 const Card = props => {
-	console.log(props)
 	return (
 		<Container>
-			{customerObject().map(field => (
+			{customerObject(props.data).map(field => (
 				<Item key={field.id}>
-					{field.inputField.label}:<Text>{props.data}</Text>
+					{field.label}:<Text1>{field.data}</Text1>
 				</Item>
 			))}
 		</Container>

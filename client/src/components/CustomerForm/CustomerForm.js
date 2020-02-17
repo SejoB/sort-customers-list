@@ -15,22 +15,22 @@ import {
 const CustomerForm = () => {
 	const [showForm, setShowForm] = useState('none')
 	const [customerForm, setCustomerForm] = useState(customerObject())
+
 	const inputChangedHandler = (event, inputId) => {
 		const updatedInput = [...customerForm]
-		updatedInput[inputId].inputField.value = event.target.value
+		updatedInput[inputId].value = event.target.value
 		setCustomerForm(updatedInput)
 	}
 	const formSubmitHandler = event => {
 		event.preventDefault()
 		const formData = {}
 		customerForm.forEach(element => {
-			formData[element.inputField.name] = customerForm[element.id].inputField.value
+			formData[element.name] = customerForm[element.id].value
 		})
 		postCustomer(formData)
-		setCustomerForm(customerObject)
+		setCustomerForm(customerObject())
 		setShowForm('none')
 	}
-
 	return (
 		<>
 			<Form method='post' onSubmit={formSubmitHandler} displayForm={showForm}>
@@ -38,11 +38,11 @@ const CustomerForm = () => {
 				{customerForm.map(formField => {
 					return (
 						<Label key={formField.id}>
-							{formField.inputField.label}
+							{formField.label}
 							<Input
 								type='text'
-								name={formField.inputField.name}
-								value={formField.inputField.value}
+								name={formField.name}
+								value={formField.value}
 								onChange={event => inputChangedHandler(event, formField.id)}
 								required
 							/>

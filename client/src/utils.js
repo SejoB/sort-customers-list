@@ -7,21 +7,32 @@ const FORM_LABELS = [
 	'Postal Code',
 	'Country'
 ]
-export const customerObject = () => {
-	let tmpArr = []
-	FORM_LABELS.forEach((i, key) => {
-		const nameObj = i.replace(/\s/g, '')
-		const inputField = {
-			name: [nameObj],
-			label: i,
-			value: ''
-		}
-		tmpArr.push({ id: key, inputField })
-	})
-
-	return tmpArr
+export const filterCustomerData = data => {
+	if (data) {
+		return Object.entries(data).reduce((result, field) => {
+			FORM_LABELS.forEach(i => {
+				if (i.replace(/\s/g, '') === field[0]) {
+					result.push(field[1])
+				}
+			})
+			return result
+		}, [])
+	}
 }
-
+export const customerObject = (data = '') => {
+	return FORM_LABELS.reduce((total, value, index) => {
+		return [
+			...total,
+			{
+				name: value.replace(/\s/g, ''),
+				data: data[index],
+				value: '',
+				id: index,
+				label: value
+			}
+		]
+	}, [])
+}
 export const sortData = (data, resProp, sortProp, sortOrder = 1) => {
 	let obj = {}
 	data.forEach(i => {
